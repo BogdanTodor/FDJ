@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { TITLE_MAX, DESCRIPTION_MAX } from '../constants/taskConstants';
-import { TASK_PRIORITIES, TASK_STATUSES } from '../types/task';
+import { TaskPriorities, TaskStatus, TaskStatuses } from '../types/task';
 
 /**
  * Task Validation Schemas
@@ -19,7 +19,7 @@ export const createTaskSchema = Joi.object({
     'string.base': 'description must be string',
     'string.max': `description length must not exceed ${DESCRIPTION_MAX} characters`,
   }),
-  priority: Joi.string().valid(...TASK_PRIORITIES).required().messages({
+  priority: Joi.string().valid(...Object.values(TaskPriorities)).required().messages({
     'any.required': 'priority is required',
     'any.only': 'priority must be one of: low, medium or high',
   }),
@@ -33,10 +33,10 @@ export const createTaskSchema = Joi.object({
 }).unknown(false); // Reject unknown fields
 
 export const taskQuerySchema = Joi.object({
-  status: Joi.string().valid(...TASK_STATUSES).optional().messages({
+  status: Joi.string().valid(...Object.values(TaskStatuses)).optional().messages({
     'any.only': 'status must be one of: pending, in-progress or completed',
   }),
-  priority: Joi.string().valid(...TASK_PRIORITIES).optional().messages({
+  priority: Joi.string().valid(...Object.values(TaskPriorities)).optional().messages({
     'any.only': 'priority must be one of: low, medium or high',
   }),
 

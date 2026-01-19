@@ -54,6 +54,7 @@ After implementing the “Validate that due dates are in the future”, one of t
 7. Add additional unit tests for the stretch objectives to cover things like duplicate titles, dueDate being in the future, rate limiting and error handling (checking error types).
 8. Spend more time looking through the TS docs to ensure all coding style follows best practice.
 9. Flesh out the `Task` type and add more fields that might be useful such as `createdBy`.
+10. Although unnecessary for the current implementation, could have looked to strictly type caught errors as `unknown` for safety. The existing error handler can handle this but I opted against this because all failure paths have been defined and handled. This would be good for when we hit an external API, have additional business layer logic that can error or we integrate with something like openAPI that has its own set of errors.
 
 **End of Submission Documentation**
 

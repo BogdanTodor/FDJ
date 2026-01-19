@@ -3,11 +3,20 @@
  * 
  */
 
-export const TASK_STATUSES = ['pending', 'in-progress', 'completed'] as const;
-export const TASK_PRIORITIES = ['low', 'medium', 'high'] as const;
+export type TaskStatus = 'pending' | 'in-progress' | 'completed';
+export type TaskPriority = 'low' | 'medium' | 'high';
 
-export type TaskStatus = typeof TASK_STATUSES[number];
-export type TaskPriority = typeof TASK_PRIORITIES[number];
+export enum TaskStatuses {
+  pending = 'pending',
+  inProgress = 'in-progress',
+  completed = 'completed',
+};
+
+export enum TaskPriorities {
+  high = 'high',
+  medium = 'medium',
+  low = 'low',
+};
 
 export interface Task {
   id: string;              // UUID

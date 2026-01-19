@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ConflictError } from '../errors/AppErrors';
-import { Task, CreateTaskRequest, TaskQueryParams, TaskPriority } from '../types/task';
+import { ConflictError } from '../errors/AppError';
+import { Task, CreateTaskRequest, TaskQueryParams, TaskPriority, TaskStatuses } from '../types/task';
 
 /**
  * Task Service - Business Logic Layer
@@ -47,7 +47,7 @@ export class TaskService {
       title: taskData.title,
       description: taskData.description,
       priority: taskData.priority,
-      status: 'pending',
+      status: TaskStatuses.pending,
       createdAt: now,
       updatedAt: now,
       dueDate: taskData.dueDate,

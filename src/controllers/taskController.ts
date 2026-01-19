@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ValidationError } from '../errors/AppErrors';
+import { ValidationError } from '../errors/AppError';
 import { TaskService } from '../services/taskService';
 import { Task, CreateTaskRequest, TaskQueryParams } from '../types/task';
 import { validateCreateTask, validateTaskQuery } from '../validation/taskValidation';

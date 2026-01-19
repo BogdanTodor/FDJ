@@ -6,7 +6,7 @@ import { taskRoutes } from './routes/taskRoutes';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimiter } from './middleware/rateLimiter';
 import { swaggerDocs } from './config/swagger';
-import { NotFoundError } from './errors/AppErrors';
+import { NotFoundError } from './errors/AppError';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
