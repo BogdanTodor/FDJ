@@ -1,3 +1,4 @@
+import { ConflictError } from '../errors/AppError';
 import { TaskService } from '../services/taskService';
 import { CreateTaskRequest } from '../types/task';
 
@@ -72,6 +73,24 @@ describe('TaskService', () => {
       const result2 = await TaskService.createTask(taskData2);
 
       expect(result1.id).not.toBe(result2.id);
+    });
+
+    it('should error on duplicate titles', async () => {
+      const taskData1: CreateTaskRequest = {
+        title: 'Task 1',
+        priority: 'high',
+      };
+
+      const taskData2: CreateTaskRequest = {
+        title: 'Task 1',
+        priority: 'medium',
+      };
+
+      await TaskService.createTask(taskData1);
+      
+      await expect(TaskService.createTask(taskData2))
+        .rejects
+        .toThrow('A task with the same title already exists');
     });
   });
 

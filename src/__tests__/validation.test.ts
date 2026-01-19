@@ -94,6 +94,18 @@ describe('Task Validation', () => {
       expect(result.error).toBeDefined();
       expect(result.error!.details[0].message).toContain('date');
     });
+
+    it('should fail validation when dueDate is in the past', () => {
+      const invalidTask = {
+        title: 'Test Task',
+        priority: 'high',
+        dueDate: new Date(Date.now() - 86400000).toISOString(), // Yesterday      
+      };
+
+      const result = validateCreateTask(invalidTask);
+      expect(result.error).toBeDefined();
+      expect(result.error!.details[0].message).toContain('dueDate must be in the future');
+    });
   });
 
   describe('validateTaskQuery', () => {
