@@ -34,15 +34,15 @@ Title duplication: Opted to use a set for unique titles to keep data duplication
 ### Error handling
 I decided to approach error handling by defining explicit error types for each known and expected HTTP error the application will be throwing. This meant migrating the AppError from interface to a class and creating child classes. I did it this way because it meant we could throw or return defined errors with status codes preset (reducing the chance of mistyping the status code or other user errors). Because of this, the error handling middleware remained barebones and simple. 
 
-An alternative could be to leave the structure as it was initially but then handle different status codes within the handler. I opted for my approach because the new error types indicate behaviour to other developers when looking at the code e.g. validation error, conflict error etc. 
+An alternative could be to leave the structure as it was initially but then handle different status codes within the handler. I opted for my approach because the new error types indicate behaviour to other developers when looking at the code e.g. validation error, conflict error etc.
 
 ### Validation
 * All data validation logic was added as part of the schema where it made sense. For example, dueDate being in the future was added in the Joi schema because it's a simple future date check. If the requirement was different and said “1 day in the future” or anything more custom, this would either be moved to the business layer or additional business layer logic would be added.
 
-* The task.ts file was modified slightly to include consts of both the status and priority enum. This was to avoid duplication of defining the same enum in the Joi schema and instead let us check validity directly with `.valid(...TASK_PRIORITIES)`
-
 ### Unit test modifications
 After implementing the “Validate that due dates are in the future”, one of the unit tests began to fail because it was using `new Date()`. This is likely due to some delay. This test title “should pass validation for valid task data” says it should contain valid creation data so I just simply made the date 1 day in the future. This keeps the test intent the same whilst also ensuring tiny timing mismatches don’t conflict.
+
+Added additional unit test failure cases for dueDates needing to be in the future and creating tasks with duplicate titles.
 
 ## What I would do if I had more Time
 1. I explored the different ways to implement Joi validation. One approach I would like to explore was to implement it as middleware rather than at the controller level. I believe this is more standard practice and is similar to what is done in nextjs but I wanted to stick as close to the spec as possible for this code test.
